@@ -4,19 +4,13 @@ import javax.persistence.*
 
 @Table(name = "movies")
 @Entity
-open class Movie {
+data class Movie (
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null
+    var id: Long = 0,
+    var name: String? = null,
+    @OneToMany(mappedBy = "movie")
+    var movieConnection: List<MovieConnection> = listOf(),
 
-    @Column(name = "name", nullable = false)
-    var name: String? = null
-
-    @Column(name = "director", nullable = false)
-    var director: String? = null
-
-    @Column(name = "producer", nullable = false)
-    var producer: String? = null
-}
+)
 
 

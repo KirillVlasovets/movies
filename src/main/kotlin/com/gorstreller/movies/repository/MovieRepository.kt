@@ -11,7 +11,5 @@ interface MovieRepository: JpaRepository<Movie, Long>, PagingAndSortingRepositor
 
     fun findMovieByNameContaining(movieName: String, pageable: Pageable): Page<Movie?>
 
-    fun findMovieByDirectorContaining(movieDirector: String, pageable: Pageable): Page<Movie?>
-
-    fun findMovieByNameAndDirector(name: String, director: String): Movie?
+    fun findMovieByName(name: String): Movie?
 }

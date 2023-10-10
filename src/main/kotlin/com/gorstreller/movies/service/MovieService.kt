@@ -14,14 +14,13 @@ class MovieService(
 ) {
     fun create(movie: Movie): Movie {
         val movieName = movie.name!!
-        val movieDirector = movie.director!!
-        return movieRepository.findMovieByNameAndDirector(movieName, movieDirector) ?: movieRepository.save(movie)
+        return movieRepository.findMovieByName(movieName) ?: movieRepository.save(movie)
     }
 
     fun update(movie: Movie): Movie {
-        val existMovie = findById(movie.id!!)
+        val existMovie = findById(movie.id)
         val newName = movie.name
-        if(existMovie.name == newName) return existMovie
+        if (existMovie.name == newName) return existMovie
         return movieRepository.save(existMovie.apply { name = newName })
     }
 
@@ -35,6 +34,4 @@ class MovieService(
     fun findAll(pageable: Pageable): Page<Movie?> = movieRepository.findAll(pageable)
 
     fun findByName(movieName: String, pageable: Pageable): Page<Movie?> = movieRepository.findMovieByNameContaining(movieName, pageable)
-
-    fun findByDirector(movieDirector: String, pageable: Pageable): Page<Movie?> = movieRepository.findMovieByDirectorContaining(movieDirector, pageable)
 }

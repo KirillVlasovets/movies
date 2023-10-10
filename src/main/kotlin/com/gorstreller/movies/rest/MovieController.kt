@@ -21,26 +21,26 @@ class MovieController(
     fun findAll(pageable: Pageable) = movieService.findAll(pageable)
 
     @Operation(summary = "Create new movie")
-    @PostMapping("/newMovie")
+    @PostMapping("/movies/new")
     fun create(@RequestBody movie: Movie) = movieService.create(movie)
 
     @Operation(summary = "Find one movie by id")
-    @GetMapping("/movie/{id}")
+    @GetMapping("/movies/{id}")
     fun findMovieById(@PathVariable id: Long): Movie? = movieService.findById(id)
 
     @Operation(summary = "Delete one movie by id")
-    @DeleteMapping("/movie/{id}/delete")
+    @DeleteMapping("/movies/{id}/delete")
     fun deleteMovieById(@PathVariable id: Long) = movieService.deleteMovieById(id)
 
     @Operation(summary = "Changing movie's info by id")
-    @PutMapping("/movie/{id}/edit")
+    @PutMapping("/movies/{id}/edit")
     fun changeMovieInfoById(@RequestBody movie: Movie, @PathVariable id: Long) = movieService.update(movie)
 
     @Operation(summary = "Find movies by name")
     @GetMapping("/movies/{movieName}")
     fun findMovieByName(@Param("movieName") @PathVariable movieName: String, pageable: Pageable) = movieService.findByName(movieName, pageable)
 
-    @Operation(summary = "Find movies by director")
-    @GetMapping("/movies/director={movieDirector}")
-    fun findMovieByDirector(@Param("movieDirector") @PathVariable movieDirector: String, pageable: Pageable) = movieService.findByDirector(movieDirector, pageable)
+//    @Operation(summary = "Find movies by director")
+//    @GetMapping("/movies/director={movieDirector}")
+//    fun findMovieByDirector(@Param("movieDirector") @PathVariable movieDirector: String, pageable: Pageable) = movieService.findByDirector(movieDirector, pageable)
 }
