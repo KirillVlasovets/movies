@@ -1,16 +1,24 @@
 package com.gorstreller.movies.model.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import java.io.Serializable
 import javax.persistence.*
 
 @Table(name = "movies")
 @Entity
-data class Movie (
+open class Movie : Serializable {
     @Id
-    var id: Long = 0,
-    var name: String? = null,
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0
+    @Column(name = "name")
+    var name: String? = null
     @OneToMany(mappedBy = "movie")
-    var movieConnection: List<MovieConnection> = listOf(),
-
-)
+    @JsonIgnore
+    var characters: MutableList<Character> = mutableListOf()
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    var movieConnection: MutableList<MovieConnection> = mutableListOf()
+}
 
 

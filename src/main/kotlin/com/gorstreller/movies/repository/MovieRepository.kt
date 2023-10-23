@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository
 interface MovieRepository: JpaRepository<Movie, Long>, PagingAndSortingRepository<Movie, Long> {
     override fun findAll(pageable: Pageable): Page<Movie?>
 
-    fun findMovieByNameContaining(movieName: String, pageable: Pageable): Page<Movie?>
+    fun findMovieByNameIsContainingIgnoreCase(movieName: String, pageable: Pageable): Page<Movie?>
 
     fun findMovieByName(name: String): Movie?
 }

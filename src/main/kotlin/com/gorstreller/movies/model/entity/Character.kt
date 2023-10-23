@@ -5,20 +5,20 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "characters")
-data class Character(
+open class Character (
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0,
+
     @Column(name = "name", nullable = false)
-    var name: String,
+    var name: String? = null,
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     @JoinColumn(name = "movie_id", nullable = false)
-//    @JsonIgnore
-    var movie: Movie,
+    var movie: Movie? = null,
 
     @OneToMany(mappedBy = "character")
     @Column(nullable = false)
+    @JsonIgnore
     var movieConnection: MutableSet<MovieConnection> = mutableSetOf(),
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
     )

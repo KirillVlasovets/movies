@@ -11,7 +11,8 @@ class CharacterService(
     private val characterRepository: CharacterRepository
 ) {
     fun create(character: Character): Character {
-        return characterRepository.findCharacterByNameAndMovie(character.name, character.movie?.name) ?: characterRepository.save(character)
+        return characterRepository.findCharacterByNameAndMovie(character.name, character.movie) ?:
+        characterRepository.save(character)
     }
 
     fun findAll(pageable: Pageable): Page<Character> = characterRepository.findAll(pageable)

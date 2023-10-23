@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class MovieService(
@@ -33,5 +34,6 @@ class MovieService(
 
     fun findAll(pageable: Pageable): Page<Movie?> = movieRepository.findAll(pageable)
 
-    fun findByName(movieName: String, pageable: Pageable): Page<Movie?> = movieRepository.findMovieByNameContaining(movieName, pageable)
+    fun findByName(movieName: String, pageable: Pageable): Page<Movie?> =
+        movieRepository.findMovieByNameIsContainingIgnoreCase(movieName, pageable)
 }

@@ -6,17 +6,18 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "participants")
-data class Participant (
-    @Column(name = "name", nullable = false)
-    var name: String,
-
-    @Column(name = "dob", nullable = false)
-    var dateOfBirth: LocalDate,
-
-    @OneToMany(mappedBy = "participant")
-    var movies: MutableSet<MovieConnection> = mutableSetOf(),
-
+open class Participant (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long = 0,
+
+    @Column(name = "name", nullable = false)
+    var name: String? = null,
+
+    @Column(name = "dob", nullable = false)
+    var dateOfBirth: LocalDate? = null,
+
+    @OneToMany(mappedBy = "participant")
+    @JsonIgnore
+    var movies: MutableSet<MovieConnection> = mutableSetOf(),
 )
