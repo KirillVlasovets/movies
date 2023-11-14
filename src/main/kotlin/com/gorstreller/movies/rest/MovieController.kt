@@ -59,4 +59,3 @@ class MovieController(
 //    @GetMapping("/movies/director={movieDirector}")
 //    fun findMovieByDirector(@Param("movieDirector") @PathVariable movieDirector: String, pageable: Pageable) = movieService.findByDirector(movieDirector, pageable)
 }
-

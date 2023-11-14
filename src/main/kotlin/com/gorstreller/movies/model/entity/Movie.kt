@@ -20,5 +20,3 @@ open class Movie : Serializable {
     @JsonIgnore
     var movieConnection: MutableList<MovieConnection> = mutableListOf()
 }
-
-
