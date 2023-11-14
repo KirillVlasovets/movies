@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/mainStyles.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+    <meta charset="UTF-8">
+    <title>Movies page</title>
+</head>
+<body>
+<header class="container">
+    <h1>The movie service</h1>
+</header>
+<form th:action="@{/api.movies}">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Movie ID</th>
+            <th>Movie name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="movie, iStat : ${moviePage.content}"
+            th:style="${iStat.odd}? 'font-weight: bold;'"
+            th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td th:text="${movie.id}"/>
+            <td th:text="${movie.name}"/>
+        </tbody>
+    </table>
+    <div th:if="${moviePage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/movies(size=${moviePage.size}, page=${pageNumber})}"
+           th:text="${pageNumber}"
+           th:class="${pageNumber==moviePage.number + 1} ? active"></a>
+    </div>
+</form>
+<footer>
+    <a href="/logout">Log out</a>
+</footer>
+</body>
+</html>

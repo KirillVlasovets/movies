@@ -1,9 +1,12 @@
 package com.gorstreller.movies.rest
 
 import com.gorstreller.movies.model.entity.Movie
+import com.gorstreller.movies.model.responses.MovieResponse
 import com.gorstreller.movies.service.MovieService
 import io.swagger.v3.oas.annotations.Operation
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -18,7 +21,19 @@ class MovieController(
 
     @Operation(summary = "Find all")
     @GetMapping
-    fun findAll(pageable: Pageable) = movieService.findAll(pageable)
+    fun findAll(@RequestParam(defaultValue = "1") page: Int,
+                @RequestParam(defaultValue = "5") size: Int) =
+        movieService.findPaginated(
+            PageRequest.of(
+                page - 1,
+                size,
+                Sort.by("name")
+            )).let {
+                MovieResponse(
+                    items = it.toList(),
+                    hasNext = it.hasNext()
+                )
+        }
 
     @Operation(summary = "Create new movie")
     @PostMapping("/new")
@@ -44,3 +59,4 @@ class MovieController(
 //    @GetMapping("/movies/director={movieDirector}")
 //    fun findMovieByDirector(@Param("movieDirector") @PathVariable movieDirector: String, pageable: Pageable) = movieService.findByDirector(movieDirector, pageable)
 }
+

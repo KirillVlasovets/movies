@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link th:href="@{/css/mainStyles.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,100&subset=cyrillic,latin">
+    <meta charset="UTF-8">
+    <title>Start page</title>
+</head>
+<body>
+    <header class="container">
+        <h1>The movie service</h1>
+    </header>
+    <table border="1">
+        <thead>
+            <tr>
+                <th th:text="#{msg.id}" />
+                <th th:text="#{msg.name}" />
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="movie, iStat : ${moviePage.content}"
+                th:style="${iStat.odd}? 'font-weight: bold;'"
+                th:alt-title="${iStat.even}? 'even' : 'odd'">
+            <td th:text="${movie.id}" />
+            <td th:text="${movie.name}" />
+        </tbody>
+    </table>
+    <div th:if="${moviePage.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/listBooks(size=${moviePage.size}, page=${pageNumber})}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==moviePage.number + 1} ? active"></a>
+    </div>
+</body>
+</html>

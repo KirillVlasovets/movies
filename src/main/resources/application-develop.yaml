@@ -2,6 +2,6 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/movies_project
     username: postgres
-    password: root
+    password: ${DB_PASSWORD}
   jpa:
     database: POSTGRESQL

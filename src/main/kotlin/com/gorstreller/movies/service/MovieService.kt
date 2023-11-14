@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class MovieService(
@@ -32,7 +31,7 @@ class MovieService(
     //TODO: log stash, elastic search, kibana.
     fun findById(id: Long): Movie = movieRepository.findByIdOrNull(id) ?: throw EntityNotFoundException("")
 
-    fun findAll(pageable: Pageable): Page<Movie?> = movieRepository.findAll(pageable)
+    fun findPaginated(pageable: Pageable): Page<Movie> = movieRepository.findAll(pageable)
 
     fun findByName(movieName: String, pageable: Pageable): Page<Movie?> =
         movieRepository.findMovieByNameIsContainingIgnoreCase(movieName, pageable)
