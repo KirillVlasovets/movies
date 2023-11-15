@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link th:href="@{/css/mainStyles.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+<header class="container">
+  <h1>Movies catalog</h1>
+</header>
+<form name='formLoginPage' th:action="@{/login}" method='POST'>
+  <fieldset>
+    <label class="lbl-authorization">Authorization</label>
+    <br>
+    <div th:if="${param.error}" class="alert alert-error">
+      Wrong login/password!
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+      Log out
+    </div>
+    <label for="username">Login:</label>
+    <input id="username" name="username" type="text">
+    <label for="password">Password:</label>
+    <input id="password" name="password" type="password">
+    <div class="form-actions">
+      <button class="btn" type="submit">Log in</button>
+    </div>
+  </fieldset>
+</form>
+</body>
+</html>
